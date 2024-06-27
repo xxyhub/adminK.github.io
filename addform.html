@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resim Yükleme</title>
+</head>
+<body>
+<script type="text/javascript">
+<!-- //
+function kod_ekle()
+{
+	var adres = unescape(document.location.search.substring(1));
+	adres = (adres.replace(/\[url=(.*?)\]/gim,""));
+	adres = (adres.replace(/\[\/url\]/gim,""));
+
+	var yukleme_duzenleyici_id = "mesaj_icerik";
+	var yukleme_duzenleyici_katman = "mesaj_icerik_div";
+	var div_katman = opener.document.getElementById(yukleme_duzenleyici_katman);
+
+	var kod = "html";
+	if (div_katman){if (div_katman.style.display != "inline") kod = "bbcode";}
+
+
+	if (kod == "bbcode") dosya = adres;
+	else
+	{
+		if (div_katman){if (div_katman.style.display == "inline") div_katman.focus();}
+		dosya = (adres.replace(/\[img\](.*?)\[\/img\]/gim,"<img src=\"$1\">"));
+	}
+
+
+	// editör seçimi için varsayılan değişkenler
+	if (typeof(opener.tinyMCE) !== "undefined") var Btinymce = opener.tinyMCE.activeEditor;
+	else var Btinymce = "";
+
+	if (typeof(opener.$.sceditor) !== "undefined"){
+		if (opener.$("#"+yukleme_duzenleyici_id).sceditor("instance")) var Bsceditor = yukleme_duzenleyici_id;
+		else var Bsceditor = "";
+	}
+	else var Bsceditor = "";
+
+
+	// tinyMCE için
+	if (Btinymce.id==yukleme_duzenleyici_id)
+	{
+		Btinymce.focus();
+		Btinymce.selection.setContent(dosya);
+	}
+
+	// CKEditor için
+	else if ( (typeof(opener.CKEDITOR) !== "undefined") && (typeof(opener.CKEDITOR.instances[yukleme_duzenleyici_id]) !== "undefined") )
+	{
+		opener.CKEDITOR.instances[yukleme_duzenleyici_id].insertHtml(dosya);
+	}
+
+	// SCEditor için
+	else if (Bsceditor==yukleme_duzenleyici_id)
+	{
+		opener.$("#"+yukleme_duzenleyici_id).sceditor("instance").focus();
+		var veri = opener.$("#"+yukleme_duzenleyici_id).sceditor("instance").val();
+		opener.$("#"+yukleme_duzenleyici_id).sceditor("instance").val(veri+dosya);
+	}
+
+	// phpKF ve diğer editörler için
+	else
+	{
+		if (opener.document.getElementById(yukleme_duzenleyici_id) != null) opener.document.getElementById(yukleme_duzenleyici_id).value += dosya;
+		if (opener.document.getElementById(yukleme_duzenleyici_katman) != null){
+			opener.document.getElementById(yukleme_duzenleyici_katman).innerHTML += dosya;
+		}
+	}
+
+
+	window.close();
+}
+kod_ekle();
+// -->
+</script>
+</body>
+</html>
